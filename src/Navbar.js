@@ -5,10 +5,21 @@ import { useCart } from "./CartContext";
 import KidsDropdown from "./kidsdropdown";
 // import { Category } from "@mui/icons-material";
 
+
+const menuItems = [
+  { name: "HOME", path: "/" },
+  { name: "KIDS", path: "/category/kids" },
+  { name: "WOMEN", path: "/category/women" },
+  { name: "MEN", path: "/category/men" },
+  { name: "HOME & LIVING", path: "/category/home-living" },
+  { name: "BEAUTY", path: "/category/beauty" },
+  { name: "ELECTRONICS", path: "/category/electronics" },
+  { name: "JEWELLERY", path: "/category/jewellery" },
+];
+
 function Navbar({onCategoryClick}) {
     const [showWomen, setShowWomen] = useState(false);
     const [showmen, setShowmen] = useState(false);
-    
 
     const { cartCount } = useCart();
 
@@ -160,12 +171,12 @@ const menCategories = [
         <nav className="navbar">
 
             <div className="logo">
-              <a href="/"> <span> 🛍️ E-Shop Mall</span></a>
+              <Link to="/" className="navbar-logo"> 🛍️ E-Shop Mall</Link>
             </div>
 
             <div className="nav-links">
 
-                <a href="/">HOME</a>
+                <Link to="/" className="nav-link">HOME</Link>
 
 
 <div className="nav-kids"
@@ -267,8 +278,7 @@ const menCategories = [
                     }
                     </div>
 
-                    {/* <a href="/kids">KIDS</a> */}
-                   <Link to="/home-living">HOME & LIVING</Link>
+                    <Link to="/home-living">HOME & LIVING</Link>
                     <Link to="/beauty">BEAUTY</Link>
                     <Link to="/electronics">ELECTRONICS</Link>
                     <Link to="/jewellery">JEWELLERY</Link>
