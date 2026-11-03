@@ -3,16 +3,12 @@ import "./Navbar.css";
 import { Link } from "react-router-dom";
 import { useCart } from "./CartContext";
 import KidsDropdown from "./kidsdropdown";
-import { Category } from "@mui/icons-material";
+// import { Category } from "@mui/icons-material";
 
 function Navbar({onCategoryClick}) {
     const [showWomen, setShowWomen] = useState(false);
     const [showmen, setShowmen] = useState(false);
-    const [showjewellery, setShowjewellery] = useState(false);
-
-    const [showhome , setShowhome] = useState(false);
-        const [showbeauty, setShowbeauty] = useState(false);
-    const [showelectronics, setShowelectronics] = useState(false);
+    
 
     const { cartCount } = useCart();
 
@@ -257,9 +253,9 @@ const menCategories = [
     </h4>
 
     {category.items.map((item, i) => (
-      <a href="#" key={i}>
+      <Link to="#" key={i}>
         {item}
-      </a>
+      </Link>
     ))}
 
   </div>
@@ -272,10 +268,10 @@ const menCategories = [
                     </div>
 
                     {/* <a href="/kids">KIDS</a> */}
-                    <a href="/home-living">HOME & LIVING</a>
-                    <a href="/beauty">BEAUTY</a>
-                    <a href="/electronics">ELECTRONICS</a>
-                    <a href="/jewellery">JEWELLERY</a>
+                   <Link to="/home-living">HOME & LIVING</Link>
+                    <Link to="/beauty">BEAUTY</Link>
+                    <Link to="/electronics">ELECTRONICS</Link>
+                    <Link to="/jewellery">JEWELLERY</Link>
 
                 </div>
 
