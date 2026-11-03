@@ -20,11 +20,6 @@ const menuItems = [
 function Navbar({onCategoryClick}) {
     const [showWomen, setShowWomen] = useState(false);
     const [showmen, setShowmen] = useState(false);
-    const [showjewellery, setShowjewellery] = useState(false);
-
-    const [showhome , setShowhome] = useState(false);
-        const [showbeauty, setShowbeauty] = useState(false);
-    const [showelectronics, setShowelectronics] = useState(false);
 
     const { cartCount } = useCart();
 
@@ -269,9 +264,9 @@ const menCategories = [
     </h4>
 
     {category.items.map((item, i) => (
-      <a href="#" key={i}>
+      <Link to="#" key={i}>
         {item}
-      </a>
+      </Link>
     ))}
 
   </div>
