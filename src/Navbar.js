@@ -278,7 +278,6 @@ const menCategories = [
                     }
                     </div>
 
-                    {/* <a href="/kids">KIDS</a> */}
                     <Link to="/home-living">HOME & LIVING</Link>
                     <Link to="/beauty">BEAUTY</Link>
                     <Link to="/electronics">ELECTRONICS</Link>
