@@ -25,18 +25,11 @@ const categories = [
 ];
 
 function Home() {
-  const { addToCart, cartCount } = useCart();
+  const { addToCart } = useCart();
 
   const [products, setProducts] = useState([]);
 
-  const loadCategoryProducts = async (category) => {
-  try {
-    const data = await getProducts(category);
-    setProducts(data);
-  } catch (error) {
-    console.error("Unable to load products:", error);
-  }
-};
+
   const [activeCategory, setActiveCategory] =
     useState("All Clothing");
   const [search, setSearch] = useState("");

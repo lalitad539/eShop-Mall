@@ -6,17 +6,6 @@ import KidsDropdown from "./kidsdropdown";
 // import { Category } from "@mui/icons-material";
 
 
-const menuItems = [
-  { name: "HOME", path: "/" },
-  { name: "KIDS", path: "/category/kids" },
-  { name: "WOMEN", path: "/category/women" },
-  { name: "MEN", path: "/category/men" },
-  { name: "HOME & LIVING", path: "/category/home-living" },
-  { name: "BEAUTY", path: "/category/beauty" },
-  { name: "ELECTRONICS", path: "/category/electronics" },
-  { name: "JEWELLERY", path: "/category/jewellery" },
-];
-
 function Navbar({onCategoryClick}) {
     const [showWomen, setShowWomen] = useState(false);
     const [showmen, setShowmen] = useState(false);
