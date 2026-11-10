@@ -30,7 +30,7 @@ function Home() {
 
 
   const [activeCategory, setActiveCategory] =
-    useState("All Clothing");
+    useState("all");
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -66,26 +66,27 @@ useEffect(() => {
   let cancelled = false;
 
 async function fetchClothing() {
-  try {
-    const response = await fetch(
-      `https://dummyjson.com/products/category/${activeCategory.api}?limit=0`
-    );
+try {
+  const url =
+    activeCategory === "all"
+      ? "https://dummyjson.com/products?limit=0"
+      : `https://dummyjson.com/products/category/${activeCategory}?limit=0`;
 
-    const result = await response.json();
-    const productList = result.products || [];
+  const response = await fetch(url);
 
-    const formattedProducts = productList.map((item) => ({
-      ...item,
-      name: item.title,
-      image: item.thumbnail,
-      price: Math.round(item.price * 30),
-    }));
+  const result = await response.json();
+  const productList = result.products || [];
 
-    if (!cancelled) {
-      setProducts(formattedProducts);
-    }
+  const formattedProducts = productList.map((item) => ({
+    ...item,
+    name: item.title,
+    image: item.thumbnail,
+    price: Math.round(item.price * 30),
+  }));
 
-  } catch (error) {
+  if (!cancelled) {
+    setProducts(formattedProducts);
+  }  } catch (error) {
     if (!cancelled) {
       setError(error.message || "Could not load products.");
       setProducts([]);
