@@ -2,7 +2,6 @@ import React, { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import { useCart } from "./CartContext";
 import "./App.css";
-import { getProducts } from "./productApi-temp";
 
 const clothingAPIs = [
   "mens-shirts",
@@ -66,76 +65,37 @@ useEffect(() => {
 useEffect(() => {
   let cancelled = false;
 
-  async function fetchClothing() {
-    setLoading(true);
-    setError("");
+async function fetchClothing() {
+  try {
+    const response = await fetch(
+      `https://dummyjson.com/products/category/${activeCategory.api}?limit=0`
+    );
 
-    try {
-      let productList = [];
+    const result = await response.json();
+    const productList = result.products || [];
 
-      if (activeCategory === "All Clothing") {
-        const responses = await Promise.all(
-          clothingAPIs.map((category) =>
-            fetch(
-              `https://dummyjson.com/products/category/${category}`
-            )
-          )
-        );
+    const formattedProducts = productList.map((item) => ({
+      ...item,
+      name: item.title,
+      image: item.thumbnail,
+      price: Math.round(item.price * 30),
+    }));
 
-        if (responses.some((response) => !response.ok)) {
-          throw new Error("Could not load clothing products.");
-        }
+    if (!cancelled) {
+      setProducts(formattedProducts);
+    }
 
-        const results = await Promise.all(
-          responses.map((response) => response.json())
-        );
-
-        productList = results.flatMap(
-
-          (result) => result.products || []
-        );
-      } else {
-        const selectedCategory = categories.find(
-          (category) => category.name === activeCategory
-        );
-
-        // if (!selectedCategory) {
-        //   throw new Error("Please choose a valid category.");
-        // }
-
-        const response = await fetch(
-          `https://dummyjson.com/products/category/${selectedCategory.api}?limit=0`);
-
-        // if (!response.ok) {
-        //   throw new Error("Could not load this category.");
-        // }
-
-        const result = await response.json();
-       setProducts = result.products || [];
-      }
-
-      const formattedProducts = productList.map((item) => ({
-        ...item,
-        name: item.title,
-        image: item.thumbnail,
-        price: Math.round(item.price * 30),
-      }));
-
-      if (!cancelled) {
-        setProducts(formattedProducts);
-      }
-    } catch (error) {
-      if (!cancelled) {
-        setError(error.message || "Could not load products.");
-        setProducts([]);
-      }
-    } finally {
-      if (!cancelled) {
-        setLoading(false);
-      }
+  } catch (error) {
+    if (!cancelled) {
+      setError(error.message || "Could not load products.");
+      setProducts([]);
+    }
+  } finally {
+    if (!cancelled) {
+      setLoading(false);
     }
   }
-
+}
   fetchClothing();
 
   return () => {
@@ -434,12 +394,8 @@ useEffect(() => {
                     <button
                       type="button"
                       className="add-cart-btn"
-                      onClick={() => addToCart({
-                        ...product,
-                        product:product.price,})
-                      }
-                    >
-                      + Add to Cart
+                      onClick={() => handleAddToCart(product)}>
+                       Add to Cart
                     </button>
                   </div>
                 </article>
