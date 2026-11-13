@@ -6,11 +6,38 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  function handleSubmit(event) {
-    event.preventDefault();
-    alert("Login form submitted. Connect a backend to authenticate your account.");
-  }
+async function handleSubmit(event) {
+  event.preventDefault();
 
+  try {
+    const response = await fetch("http://localhost:5000/api/auth/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email,
+        password,
+      }),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      alert(data.message || "Login failed");
+      return;
+    }
+
+    localStorage.setItem("token", data.token);
+
+    alert("Login successful! Welcome to E-Shop Mall.");
+
+    window.location.href = "/";
+
+  } catch (error) {
+    alert("Cannot connect to backend. Please try again.");
+  }
+}
   return (
     <main className="auth-page">
       <form className="auth-card" onSubmit={handleSubmit}>

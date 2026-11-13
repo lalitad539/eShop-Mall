@@ -7,11 +7,43 @@ function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  function handleSubmit(event) {
-    event.preventDefault();
-    alert("Registration form submitted. Connect a backend to create your account.");
-  }
+async function handleSubmit(event) {
+  event.preventDefault();
 
+  try {
+    const response = await fetch(
+      "https://eshop-mall.onrender.com/api/auth/register",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          password,
+        }),
+      }
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      alert(data.message || "Registration failed!");
+      return;
+    }
+
+    alert("Account created successfully! Please login.");
+
+    setName("");
+    setEmail("");
+    setPassword("");
+
+  } catch (error) {
+    console.error("Registration error:", error);
+    alert("Cannot connect to backend. Please try again.");
+  }
+}
   return (
     <main className="auth-page">
       <form className="auth-card" onSubmit={handleSubmit}>
@@ -19,6 +51,7 @@ function Register() {
         <p>Join E-Shop Mall and start shopping.</p>
 
         <label htmlFor="register-name">Full Name</label>
+        
         <input
           id="register-name"
           type="text"
