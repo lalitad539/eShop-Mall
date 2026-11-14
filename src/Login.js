@@ -10,7 +10,10 @@ async function handleSubmit(event) {
   event.preventDefault();
 
   try {
-    const response = await fetch("http://localhost:5000/api/auth/login", {
+    console.log("Login started");
+
+    const response = await fetch("https://eshop-mall.onrender.com/api/auth/login",
+{
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -21,11 +24,17 @@ async function handleSubmit(event) {
       }),
     });
 
+    console.log("Response status:", response.status);
+
     const data = await response.json();
 
+    console.log("Login response:", data);
+
     if (!response.ok) {
-      alert(data.message || "Login failed");
+      console.log("Login error:", data);
+      alert(data.message || "Login failed");   
       return;
+
     }
 
     localStorage.setItem("token", data.token);
@@ -34,9 +43,12 @@ async function handleSubmit(event) {
 
     window.location.href = "/";
 
-  } catch (error) {
-    alert("Cannot connect to backend. Please try again.");
+  } catch (error) {   
+    console.error("Actual login error:" ,error);
+
+    alert("Login error: " + error.message);
   }
+
 }
   return (
     <main className="auth-page">
