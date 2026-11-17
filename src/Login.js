@@ -41,7 +41,7 @@ async function handleSubmit(event) {
 
     alert("Login successful! Welcome to E-Shop Mall.");
 
-    window.location.href = "/";
+    window.location.href = "/#/profile";
 
   } catch (error) {   
     console.error("Actual login error:" ,error);
