@@ -95,4 +95,5 @@ async function handleSubmit(event) {
   );
 }
 
+
 export default Register;

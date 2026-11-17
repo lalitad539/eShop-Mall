@@ -394,3 +394,32 @@
 .navbar a {
   text-decoration: none;
 }
+
+/* profilecss logoutcss */
+/* Customer Profile Link */
+.profile-link {
+    text-decoration: none;
+    color: #29234f;
+    font-weight: 600;
+    padding: 8px 12px;
+    white-space: nowrap;
+}
+
+.profile-link:hover {
+    color: #e44d3a;
+}
+
+/* Logout Button */
+.logout-button {
+    background-color: #d94336;
+    color: white;
+    border: none;
+    padding: 9px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.logout-button:hover {
+    background-color: #b52e24;
+}

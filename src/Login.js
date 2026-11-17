@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./auth.css";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
 async function handleSubmit(event) {
   event.preventDefault();
@@ -41,8 +42,8 @@ async function handleSubmit(event) {
 
     alert("Login successful! Welcome to E-Shop Mall.");
 
-    window.location.href = "/#/profile";
-
+    navigate("/profile");
+    
   } catch (error) {   
     console.error("Actual login error:" ,error);
 

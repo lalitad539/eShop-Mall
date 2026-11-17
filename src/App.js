@@ -7,6 +7,7 @@ import Cart from './Cart';
 import { CartProvider } from "./CartContext";
 import Checkout from "./Checkout";
 import Navbar from './Navbar';
+import Profile from "./Profile";
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
       <Route path="/register" element={<Register />} />
       <Route path="/cart" element={<Cart />} />
       <Route path="/checkout" element={<Checkout />} />
+      <Route path="/profile" element={<Profile />} />
     </Routes>
     </CartProvider>
     </div>
